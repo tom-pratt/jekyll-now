@@ -25,7 +25,11 @@ And here is a blog post from bitoftech.net about Owin, OAuth and tokens which he
 <h3>Requirements</h3>
 There's a convenient way to get started and that's by looking at one of the Visual Studio template projects which comes with this type of authentication built in. Once we've worked out what the important bits are, we can try to recreate it in Orchard, using the Orchard user management system.
 
+![1_webapi_template.jpg]({{site.baseurl}}/_posts/1_webapi_template.jpg)
+
 <a href="http://www.sylapse.com/wp-content/uploads/2015/07/1_webapi_template.jpg"><img class="alignnone size-full wp-image-90" src="http://www.sylapse.com/wp-content/uploads/2015/07/1_webapi_template.jpg" alt="1_webapi_template" width="784" height="588" /></a>
+
+
 
 This template gives us ASP.NET Identity (the standard .NET user management system) for user accounts and OAuth for issuing tokens. When we combine the two, we can put the [Authorize] attribute on our controllers to restrict access and get information about the current user. The OAuth stuff comes implemented as an OWIN middleware. If you don't know much about OWIN then for now it's enough to know that OWIN middlewares contain code that is executed when a request comes into our website before it hits the relevant controller, which is a good time to do authentication.
 
