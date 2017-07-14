@@ -1,4 +1,6 @@
 ---
+layout: post
+title: OAuth Token Authentication for Orchard - Part 1
 published: true
 ---
 Lots of apps and websites require that users create an account, maybe to store user preferences, user data or to allow for special permissions. Orchard comes with user accounts built in and all we want to do is extend it a little to make this functionality available to our mobile client apps.
