@@ -1,6 +1,6 @@
 ---
 layout: post
-title: _posts/2016-08-20-OAuth-Token-Authentication-for-Orchard-Part-2.md
+title: OAuth Token Authentication for Orchard - Part 2
 published: true
 ---
 This is Part 2 of adding OAuth Token Authentication to Orchard. In Part 1 we implemented everything we need to allow users to register with our Orchard website over WebAPI and for them to login and receive a Token which they could use to make authorized requests.
