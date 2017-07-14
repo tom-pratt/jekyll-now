@@ -12,7 +12,7 @@ The Morphous.TokenAuth module can be used in any Orchard project, you don't need
 
 Lets add something else that will be useful in a lot of ApiControllers and that brings us back to the Claim we added to the token in the AuthProvider class in Part 1. We often want to get the current user in our controllers, usually we want to get their data out the database and display it for them or something like that. We'll cheat a little to begin with and then tidy it up after. Following on with the code we wrote in part 1... overwrite the code in the ValuesController with this:
 
-[code language="csharp"]
+```
 using Orchard.Security;
 using System;
 using System.Collections.Generic;
@@ -45,19 +45,19 @@ namespace MyApi.Controllers {
         }
     }
 }
-[/code]
+```
 
 We inject the IMembershipService and we've added this OrchardUser property of type IUser, which is an Orchard interface for a user. Having an IUser in the controller is convenient because you often want to load data related to the current user, here we just print out the Id property to prove that we've got the user. The IMembershipService's GetUser method expects an Orchard username. Luckily for us this happens to be available in the "User.Identity.Name" property, note that this isn't an Orchard property, it's just a part of ApiController. So how does the ApiController know the Orchard username of the client that's making the request? It's thanks to the Cliam that we added to the Token in the AuthProvider class when the Token was generated. More specifically, it's thanks to the special key string we used to add the claim, it looked like this:
 
-[code language="csharp"]
+```
 identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-[/code]
+```
 
 So this works and we now have the current user which we could start using. But Orchard developers know that this isn't how we usually access the current user when we're in a Controller, usually we use the CurrentUser property on the WorkContext. At the moment this only works for requests that come in authorised with a cookie, Orchard does that out of the box. We just need to inform Orchard who the current user is when a request comes in with an authorisation token.
 
 We need to set the current user for an incoming request after the OAuth middleware has authenticated the user but before it hits the controller. We can do this by adding a second Owin middleware to the pipeline. Open the AuthMiddleware class and add the second middleware so that the whole class looks like this.
 
-[code language="csharp"]
+```
 using HttpAuth.Providers;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
@@ -113,13 +113,13 @@ namespace HttpAuth.Owin {
         }
     }
 }
-[/code]
+```
 
 Notice the priority property which determines the order the middlewares are invoked. We need this new middleware to run second so that the user has already authenticated by then. Just like in the ValuesController at the start of this post we can get the current user's username from <em>User.Identity.Name</em> on the current request. Then we just use Orchard's IMembershipService and IAuthenticationService to set the current user for the request.
 
 Lets change our ValuesController to look a bit more Orchardy. Overwrite the whole file with this.
 
-[code language="csharp"]
+```
 using Orchard;
 using System.Web.Http;
 using Orchard.Core.Contents;
@@ -140,7 +140,7 @@ namespace HttpAuth.Controllers {
         }
     }
 }
-[/code]
+```
 
 You'll need to install this Nuget package into your MyApi module to be able to use the <em>Unauthorized()</em> method.
 
