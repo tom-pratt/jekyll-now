@@ -29,12 +29,6 @@ There's a convenient way to get started and that's by looking at one of the Visu
 ![1_webapi_template.jpg]({{site.baseurl}}/images/posts/1_webapi_template.jpg)
 
 
-![1_webapi_template.jpg]({{site.baseurl}}/_posts/1_webapi_template.jpg)
-
-<a href="http://www.sylapse.com/wp-content/uploads/2015/07/1_webapi_template.jpg"><img class="alignnone size-full wp-image-90" src="http://www.sylapse.com/wp-content/uploads/2015/07/1_webapi_template.jpg" alt="1_webapi_template" width="784" height="588" /></a>
-
-
-
 This template gives us ASP.NET Identity (the standard .NET user management system) for user accounts and OAuth for issuing tokens. When we combine the two, we can put the [Authorize] attribute on our controllers to restrict access and get information about the current user. The OAuth stuff comes implemented as an OWIN middleware. If you don't know much about OWIN then for now it's enough to know that OWIN middlewares contain code that is executed when a request comes into our website before it hits the relevant controller, which is a good time to do authentication.
 
 Let's take a look at some of the files and code in the template project and use it to figure out which bits we need to recreate and modify when we move over to Orchard. The Global.asax file in the root of the project might be a good place to start. We can see a few things that we might expect in this file, WebApi and Routing are being configured along with some other stuff. But there's no mention of authentication/OAuth/tokens yet.
@@ -124,11 +118,11 @@ The next thing to do is set up a new Orchard website. It's easy enough, all you 
 
 You should have a module which looks like this in Visual Studio
 
-<a href="http://www.sylapse.com/wp-content/uploads/2015/07/2_module_structure.jpg"><img src="http://www.sylapse.com/wp-content/uploads/2015/07/2_module_structure.jpg" alt="2_module_structure" width="426" height="425" class="alignnone size-full wp-image-91" /></a>
+![2_module_structure.jpg]({{site.baseurl}}/images/posts/2_module_structure.jpg)
 
 Remember to enable your module in Orchard like you did for Code Generation when you created the module.
 
-<a href="http://www.sylapse.com/wp-content/uploads/2015/07/3_enable_module.jpg"><img src="http://www.sylapse.com/wp-content/uploads/2015/07/3_enable_module.jpg" alt="3_enable_module" width="723" height="312" class="alignnone size-full wp-image-92" /></a>
+![3_enable_module.jpg]({{site.baseurl}}/images/posts/3_enable_module.jpg)
 
 We're ready to go now so lets remember the steps we picked out earlier when we looked at the Visual Studio template solution.
 <ol>
@@ -196,7 +190,8 @@ The Nuget package we need is Microsoft.Owin.Security.OAuth, if you search for it
 
  and hit enter.
 
-<a href="http://www.sylapse.com/wp-content/uploads/2015/07/4_nuget_owin.jpg"><img src="http://www.sylapse.com/wp-content/uploads/2015/07/4_nuget_owin.jpg" alt="4_nuget_owin" width="753" height="309" class="alignnone size-full wp-image-93" /></a>
+![4_nuget_owin.jpg]({{site.baseurl}}/images/posts/4_nuget_owin.jpg)
+
 
 That should sort out the missing references (except for the missing AuthProvider which we'll make after this). The AuthMiddleware class implements IOwinMiddlewareProvider. Orchard will detect and execute it for us and pass in an IAppBuilder (app), which is an important Owin object which we can use to configure middlewares. The AuthMiddleware class supports dependency injection and we inject Orchard's IWorkContextAccessor, it doesn't get used here but we pass it on to our AuthProvider. What we really need is the IMembershipService but we can't inject it directly here so we'll use the IWorkContextAccessor to resolve it later. I'm not entirely sure why injecting the IMembershipService doesn't work, it did used to work in an older version of Orchard. It's worth noting the last two lines in our middleware registration:
 
@@ -261,7 +256,7 @@ We're ready to build and run our Auth module for the first time now because we h
 
 Set up your request like this.
 
-<a href="http://www.sylapse.com/wp-content/uploads/2015/07/5_token_request.jpg"><img src="http://www.sylapse.com/wp-content/uploads/2015/07/5_token_request.jpg" alt="5_token_request" width="865" height="555" class="alignnone size-full wp-image-94" /></a>
+![5_token_request.jpg]({{site.baseurl}}/images/posts/5_token_request.jpg)
 
 First of all enter the address, if you run the website straight from Visual Studio then it will look like the one in the picture, you might have set it up in IIS in which case it will be different. Make the request a POST, make sure you add the content as form-urlencoded, then enter the above key value pairs but change the username and password to the ones you set when you created your Orchard website.
 
@@ -269,11 +264,11 @@ Click Send and you should get your access token back (woop!). Remember it's got 
 
 This is great because now clients can essentially log in to their account and receive a token which they can use for authorization in all future communication with our API. If like me, you're creating APIs with mobile app clients in mind, then it's pretty obvious that the next thing we'll need is a way to allow new users to create an account through the API. But there is another way to create an account already, because Orchard lets you create an account through the web browser. Run your website and log in to the admin area, at the bottom of the menu on the left, expand the Settings menu item and click Users.
 
-<a href="http://www.sylapse.com/wp-content/uploads/2015/07/6_orchard_settings.jpg"><img src="http://www.sylapse.com/wp-content/uploads/2015/07/6_orchard_settings.jpg" alt="6_orchard_settings" width="273" height="257" class="alignnone size-full wp-image-95" /></a>
+![6_orchard_settings.jpg]({{site.baseurl}}/images/posts/6_orchard_settings.jpg)
 
 Then tick "Users can create new accounts on this site" and click save.
 
-<a href="http://www.sylapse.com/wp-content/uploads/2015/07/7_orchard_usersettings.jpg"><img src="http://www.sylapse.com/wp-content/uploads/2015/07/7_orchard_usersettings.jpg" alt="7_orchard_usersettings" width="717" height="395" class="alignnone size-full wp-image-96" /></a>
+![7_orchard_usersettings.jpg]({{site.baseurl}}/images/posts/7_orchard_usersettings.jpg)
 
 Now navigate to http://localhost:30321/OrchardLocal/Users/Account/Register and you can create new accounts. Create one and use Postman to request another token using the new user details that you just created. Notice that we're starting to mix using our Orchard website through the browser and using our Orchard based API. This is nice because it's common to want to build a system where users access their account through your website or through your app seamlessly. 
 
@@ -418,7 +413,7 @@ namespace HttpAuth.Controllers {
 
 First of all, we'll fix the missing references, but this time we won't get them from nuget. It's all stuff that Orchard already has. So right click on "References" in your module in Visual Studio and click "Add Reference". First we'll add System.Web.Http, click "Browse" on the left of the Reference Manager, then click the "Browse" button at the bottom. Navigate to the "lib" folder in the root of your Orchard project folder then go into the "aspnetwebapi" folder, then add the "System.Web.Http" DLL. Now click "Solution" on the left of the Reference Manager and tick the "Orchard.Users" project.
 
-<a href="http://www.sylapse.com/wp-content/uploads/2015/07/8_references.jpg"><img src="http://www.sylapse.com/wp-content/uploads/2015/07/8_references-1024x420.jpg" alt="8_references" width="765" height="314" class="alignnone size-large wp-image-97" /></a>
+![8_references.jpg]({{site.baseurl}}/images/posts/8_references.jpg)
 
 Now we can have a look at the Register method. It's pretty easy to follow what's going on. I found the code for this in the AccountController in the Orchard.Users module. That's what we were hitting when we created a new user account through the browser a few steps ago. It's worth going and having a look at it because getting familiar with the Orchard source code is an essential part of getting comfortable with Orchard in general. I was able to strip out a fair bit because we leave the validation to the DataAnnotations on our RegisterBindingModel. Whereas Orchard's version checks these in code and adds the ModelState errors manually. I left out the bit about confirmation emails just for simplicity, but if you want confirmation emails for your system then everything you need is in that AccountController in the Orchard.Users module so you could easily add it in to your WebApi AccountController. Also I haven't bothered to log the user in as part of the Register request. If you wanted to generate a token as part of the registration and return it all in one go then you could definitely modify it to do that. We just use the email address for the username.
 
@@ -426,11 +421,11 @@ The IMembershipService and IUserService that we got via dependency injection are
 
 This should be working now so run the website and fire up Postman. Set up your request like this.
 
-<a href="http://www.sylapse.com/wp-content/uploads/2015/07/9_register_request.jpg"><img src="http://www.sylapse.com/wp-content/uploads/2015/07/9_register_request.jpg" alt="9_register_request" width="1009" height="405" class="alignnone size-full wp-image-98" /></a>
+![9_register_request.jpg]({{site.baseurl}}/images/posts/9_register_request.jpg)
 
 If everything is working then you should get a 200 Ok response. It looks good but lets convince ourselves by going into the Orchard admin panel and clicking on the Users section in the menu on the left (not to be confused with the Users subsection of the Settings menu item).
 
-<a href="http://www.sylapse.com/wp-content/uploads/2015/07/10_user_created.jpg"><img src="http://www.sylapse.com/wp-content/uploads/2015/07/10_user_created.jpg" alt="10_user_created" width="993" height="361" class="alignnone size-full wp-image-99" /></a>
+![10_user_created.jpg]({{site.baseurl}}/images/posts/10_user_created.jpg)
 
 Our newly registered user should be there. Try hitting the /Token url from Postman with these new account details.
 
@@ -442,7 +437,7 @@ We'll create some API functionality in a brand new Orchard module. This just hig
 
 Use Orchard's codegen feature again to create an empty module, I just called it MyApi. So you should have something like this:
 
-<a href="http://www.sylapse.com/wp-content/uploads/2015/07/11_myapi_module.jpg"><img src="http://www.sylapse.com/wp-content/uploads/2015/07/11_myapi_module.jpg" alt="11_myapi_module" width="413" height="353" class="alignnone size-full wp-image-100" /></a>
+![11_myapi_module.jpg]({{site.baseurl}}/images/posts/11_myapi_module.jpg)
 
 Next we'll create a new class in the Controllers folder which will inherit from ApiController. Like when we created the AccountController earlier, we have to be careful not to accidentally add a reference to a newer version of System.Web.Http than the one in the Orchard "lib" folder.
 
@@ -467,13 +462,13 @@ namespace MyApi.Controllers {
 
 Now we'll test it, so run the website and make sure you enable your new module in the Orchard admin area. Next it's really important that you sign out of your Orchard website altogether, or the cookie authentication that comes with being signed in in the browser is going to affect our ability to test the API. So once you've signed out on the browser fire up Postman, first lets send a non authorized request. Set it up like this:
 
-<a href="http://www.sylapse.com/wp-content/uploads/2015/07/12_non_authorized.jpg"><img src="http://www.sylapse.com/wp-content/uploads/2015/07/12_non_authorized.jpg" alt="12_non_authorized" width="915" height="347" class="alignnone size-full wp-image-101" /></a>
+![12_non_authorized.jpg]({{site.baseurl}}/images/posts/12_non_authorized.jpg)
 
 We haven't set up any routing so it's using the default Orchard format for WebApi controllers that was mentioned earlier and we are hitting our new ValuesController with a Get request. Unsurprisingly, it tells us that we are unauthorized, because we haven't included a valid token with our request.
 
 Obtain a token by hitting the /Token url, refer to the Postman screenshot earlier in the post if you need to remind yourself of the exact format. Once you have your token, include it in a new request like this:
 
-<a href="http://www.sylapse.com/wp-content/uploads/2015/07/13_authorized.jpg"><img src="http://www.sylapse.com/wp-content/uploads/2015/07/13_authorized.jpg" alt="13_authorized" width="909" height="353" class="alignnone size-full wp-image-102" /></a>
+![13_authorized.jpg]({{site.baseurl}}/images/posts/13_authorized.jpg)
 
 Success! By including the Authorization header in our request with a valid token, the OAuth middleware was able to do its job and authorize the request. So the request was able to get all the way to the controller action marked with [Authorize] and we got some data back.
 
