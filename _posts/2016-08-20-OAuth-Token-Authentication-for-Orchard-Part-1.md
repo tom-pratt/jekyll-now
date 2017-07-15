@@ -17,7 +17,7 @@ The Morphous.TokenAuth module can be used in any Orchard project, you don't need
 And here is a blog post from bitoftech.net about Owin, OAuth and tokens which helped me a lot when I first started on this topic. My post will be similar in lots of ways but built up around Orchard instead of ASP.NET Identity.
 [http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/](http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/)
 
-[Part 2 - The follow up blog post](http://www.sylapse.com/orchard/oauth-token-authentication-for-orchard-part-2/)p;l
+[Part 2 - The follow up blog post]({{site.baseurl}}/OAuth-Token-Authentication-for-Orchard-Part-2)
 
 *Note that there are some small name changes in the repository code vs the code samples in this post.
 
