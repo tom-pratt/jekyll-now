@@ -10,6 +10,7 @@ To do so we'll create an Orchard Module which can be dropped into any Orchard pr
 We'll be using the [http://tools.ietf.org/html/rfc6749#section-1.3.3](Resource Owner Password Credentials) OAuth flow. Which means the user types their Orchard username and password directly into your app which are sent off to your Orchard website and exchanged for an access token. We won't implement refresh tokens because mobile apps can't easily keep a client secret which would be required for refresh tokens. You just have to set an expiry time on the access tokens that you're comfortable with.
 
 **Source Code**
+![1_new_orchard.jpg]({{site.baseurl}}/_posts/1_new_orchard.jpg)
 
 The Morphous.TokenAuth module can be used in any Orchard project, you don't need the Morphous.Orchard fork for it to work:
 [https://github.com/Morphous/Morphous.TokenAuth](https://github.com/Morphous/Morphous.TokenAuth)
@@ -17,13 +18,14 @@ The Morphous.TokenAuth module can be used in any Orchard project, you don't need
 And here is a blog post from bitoftech.net about Owin, OAuth and tokens which helped me a lot when I first started on this topic. My post will be similar in lots of ways but built up around Orchard instead of ASP.NET Identity.
 [http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/](http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/)
 
-[Part 2 - The follow up blog post](http://www.sylapse.com/orchard/oauth-token-authentication-for-orchard-part-2/)
+[Part 2 - The follow up blog post](http://www.sylapse.com/orchard/oauth-token-authentication-for-orchard-part-2/)p;l
 
 *Note that there are some small name changes in the repository code vs the code samples in this post.
 
 
 <h3>Requirements</h3>
 There's a convenient way to get started and that's by looking at one of the Visual Studio template projects which comes with this type of authentication built in. Once we've worked out what the important bits are, we can try to recreate it in Orchard, using the Orchard user management system.
+
 
 ![1_webapi_template.jpg]({{site.baseurl}}/_posts/1_webapi_template.jpg)
 
