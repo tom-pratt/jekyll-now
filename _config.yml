@@ -15,10 +15,6 @@ avatar: https://avatars6.githubusercontent.com/u/10612949?v=4&u=f573d136f6fe3afa
 # Flags below are optional
 #
 
-# Prose
-prose:
-  media: 'images/posts'
-
 # Includes an icon in the footer for each username you enter
 footer-links:
   dribbble:
