@@ -10,7 +10,6 @@ To do so we'll create an Orchard Module which can be dropped into any Orchard pr
 We'll be using the [http://tools.ietf.org/html/rfc6749#section-1.3.3](Resource Owner Password Credentials) OAuth flow. Which means the user types their Orchard username and password directly into your app which are sent off to your Orchard website and exchanged for an access token. We won't implement refresh tokens because mobile apps can't easily keep a client secret which would be required for refresh tokens. You just have to set an expiry time on the access tokens that you're comfortable with.
 
 **Source Code**
-![1_new_orchard.jpg]({{site.baseurl}}/_posts/1_new_orchard.jpg)
 
 The Morphous.TokenAuth module can be used in any Orchard project, you don't need the Morphous.Orchard fork for it to work:
 [https://github.com/Morphous/Morphous.TokenAuth](https://github.com/Morphous/Morphous.TokenAuth)
@@ -25,6 +24,9 @@ And here is a blog post from bitoftech.net about Owin, OAuth and tokens which he
 
 <h3>Requirements</h3>
 There's a convenient way to get started and that's by looking at one of the Visual Studio template projects which comes with this type of authentication built in. Once we've worked out what the important bits are, we can try to recreate it in Orchard, using the Orchard user management system.
+
+
+![1_webapi_template.jpg]({{site.baseurl}}/images/posts/1_webapi_template.jpg)
 
 
 ![1_webapi_template.jpg]({{site.baseurl}}/_posts/1_webapi_template.jpg)
