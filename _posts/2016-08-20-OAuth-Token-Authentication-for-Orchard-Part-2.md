@@ -151,13 +151,13 @@ Install-Package System.Net.Http -Version 4.0.0
 
 First thing to notice is that we no longer need that OrchardUser property in the controller to manually go and get the current user. We can get the current user from the WorkContext, which was the main thing we were trying to achieve. Another benefit of having informed Orchard who the current user is, is that we can now use the Authorizer. Orchard uses Authorizer instead of the [Authorize] attribute and it gives very granular control over Orchard related permissions and Orchard developers will probably recognise it.
 
-Lets make a couple of requests to the new version of the ValuesController. First lets make a request as the site admin, who we would expect to be authorized for <em>Permissions.DeleteContent</em>. First you'll need to get an access token, so if you need to, go back to <a href="http://www.sylapse.com/uncategorized/oauth-token-authentication-for-orchard-part-1/" target="_blank">Part 1</a> and look at the request for doing that. When you've got one, make a new request to the ValuesController like this:
+Lets make a couple of requests to the new version of the ValuesController. First lets make a request as the site admin, who we would expect to be authorized for <em>Permissions.DeleteContent</em>. First you'll need to get an access token, so if you need to, go back to <a href="{{site.baseurl}}/OAuth-Token-Authentication-for-Orchard-Part-2" target="_blank">Part 1</a> and look at the request for doing that. When you've got one, make a new request to the ValuesController like this:
 
-<a href="http://www.sylapse.com/wp-content/uploads/2015/11/1_authorized_request.png"><img src="http://www.sylapse.com/wp-content/uploads/2015/11/1_authorized_request-1024x306.png" alt="1_authorized_request" width="765" height="229" class="alignnone size-large wp-image-389" /></a>
+![1_authorized_request.png]({{site.baseurl}}/images/posts/1_authorized_request.png)
 
 So, just like we thought, the admin user is authorized to delete content on this Orchard site. Lets see what happens if we make a request from a non admin user. I'm going to use tom@sylapse.com, which I created in Part 1, so after getting a token for that non admin email address, this is what happens when we make the same request.
 
-<a href="http://www.sylapse.com/wp-content/uploads/2015/11/1_unauthorized_request.png"><img src="http://www.sylapse.com/wp-content/uploads/2015/11/1_unauthorized_request-1024x277.png" alt="1_unauthorized_request" width="765" height="207" class="alignnone size-large wp-image-390" /></a>
+![1_unauthorized_request.png]({{site.baseurl}}/images/posts/1_unauthorized_request.png)
 
 This user is unauthorised to delete content (they're a registered user, they just don't have the delete permission). Notice that this unauthorised response looks a little different to what we saw in Part 1. That's because we're not using the <em>[Authorize]</em> attribute any more which was picking up the error message set in the AuthProvider class. Here we just use the <em>Unauthorized()</em> method and we haven't set any error messages. We could set an error message here if we wanted, we could tell users they don't have permission to delete content, and if they weren't signed in at all we could tell them they're not authorized because they're not signed in. The Authorizer gives you that fine grained control.
 
