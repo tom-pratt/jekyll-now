@@ -7,3 +7,8 @@ title: Morphous Xamarin SDK for dynamic content
 
 
 <a href="https://raw.githubusercontent.com/tom-pratt/tom-pratt.github.io/master/images/posts/morphousnativepost/web_screenshots_m.png" target="_blank"><img src="https://raw.githubusercontent.com/tom-pratt/tom-pratt.github.io/master/images/posts/morphousnativepost/web_screenshots_s.png" /></a>
+
+<a href="https://raw.githubusercontent.com/tom-pratt/tom-pratt.github.io/master/images/posts/morphousnativepost/app_unstyled_screenshots_m.png" target="_blank"><img src="https://raw.githubusercontent.com/tom-pratt/tom-pratt.github.io/master/images/posts/morphousnativepost/app_unstyled_screenshots_s.png" /></a>
+
+
+<a href="https://raw.githubusercontent.com/tom-pratt/tom-pratt.github.io/master/images/posts/morphousnativepost/app_styled_screenshots_m.png" target="_blank"><img src="https://raw.githubusercontent.com/tom-pratt/tom-pratt.github.io/master/images/posts/morphousnativepost/app_styled_screenshots_s.png" /></a>
