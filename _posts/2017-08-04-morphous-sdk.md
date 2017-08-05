@@ -5,7 +5,7 @@ title: Morphous Xamarin SDK for dynamic content
 ---
 The Morphous SDK for Xamarin apps lets you add content to apps really easily, all using native platform UI. Create and manage content through a ready made CMS and use the SDK to display it automatically in your app. Then you just need to create a Theme to style the content the way you want.
 
-Watch the video for a overview of the Morphous SDK. It's a little bit long but the first 35 minutes give a full picture of how everything works and what it can do for you, the rest goes into the detail of creating a Theme to style your content in an Android app.
+Watch the video for a overview of the Morphous SDK. It's a little bit long but the first 35 minutes give a full picture of how everything works and what it can do for you, the rest goes into the detail of creating a Theme to style content in an Android app.
 
 &nbsp;
 
