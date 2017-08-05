@@ -18,7 +18,7 @@ There are three main steps to using the Morphous SDK
 
 ### 1. Create some content
 
-Create and manage your content in Orchard CMS. Then add the Morphous modules which turn your content into JSON.
+Create and manage your content in Orchard CMS. Then add the Morphous modules which turn your content into JSON. Orchard can render the content on its own web front end of course.
 
 <center><a href="https://raw.githubusercontent.com/tom-pratt/tom-pratt.github.io/master/images/posts/morphousnativepost/web_screenshots_m.png" target="_blank"><img src="https://raw.githubusercontent.com/tom-pratt/tom-pratt.github.io/master/images/posts/morphousnativepost/web_screenshots_s.png" /></a></center>
 
